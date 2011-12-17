@@ -1,7 +1,7 @@
 var cluster = require('cluster');
 var server = require("./server");
 
-cluster(server)
+cluster.cluster(server)
 	.use(cluster.logger('logs'))
 	.use(cluster.stats())
 	.use(cluster.pidfiles('pids'))
