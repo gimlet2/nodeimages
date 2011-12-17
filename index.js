@@ -1,10 +1,10 @@
+var cluster = require('cluster');
 var server = require("./server");
-var router = require("./router");
-var requestHandlers = require("./requestHandlers");
 
-var handle = {}
-handle["/"] = requestHandlers.start;
-handle["/start"] = requestHandlers.start;
-handle["/upload"] = requestHandlers.upload;
-
-server.start(router.route, handle);
+cluster(server)
+	.use(cluster.logger('logs'))
+	.use(cluster.stats())
+	.use(cluster.pidfiles('pids'))
+	.use(cluster.cli())
+	.use(cluster.repl(8888))
+	.listem(3000);
