@@ -1,10 +1,10 @@
 
+var auth = require('../auth.js');
+var user = require('../models/user.js');
+
 /*
  * GET home page.
  */
- 
-var auth = require('../auth.js');
-var user = require('../models/user.js');
 
 exports.index = function(req, res) {
   res.render('index', { title: 'Express', layout: 'main'  });
@@ -12,10 +12,10 @@ exports.index = function(req, res) {
 
 exports.about = function(req, res) {
 	userFromSession = {username: req.session.username, password: req.session.password};
-	auth(userFromSession, user, req, res, aboutWithouAuth, exports.accessForbiden);
+	auth(userFromSession, user, req, res, aboutWithoutAuth, exports.accessForbiden);
 };
 
-aboutWithouAuth = function(req, res) {
+aboutWithoutAuth = function(req, res) {
 	res.render('about', { layout: 'main', title: 'About me' });
 };
 
