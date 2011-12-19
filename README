@@ -1,0 +1,8 @@
+NodeImages
+
+This project is about creating web application for personal photo sharing.
+
+It based on node.js, use express framework and mongoDB as a storage.
+
+Have fun.
+
