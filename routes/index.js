@@ -1,6 +1,7 @@
 
 var auth = require('../auth.js');
 var user = require('../models/user.js');
+var album = require('../models/album.js');
 
 /*
  * GET home page.
@@ -10,13 +11,17 @@ exports.index = function(req, res) {
   res.render('index', { title: 'Express', layout: 'main'  });
 };
 
-exports.about = function(req, res) {
+exports.admin = function(req, res) {
 	userFromSession = {username: req.session.username, password: req.session.password};
-	auth(userFromSession, user, req, res, aboutWithoutAuth, exports.accessForbiden);
+	auth(userFromSession, user, req, res, adminWithoutAuth, exports.accessForbiden);
+}
+
+exports.about = function(req, res) {
+	res.render('about', { layout: 'main', title: 'About me' });
 };
 
-aboutWithoutAuth = function(req, res) {
-	res.render('about', { layout: 'main', title: 'About me' });
+adminWithoutAuth = function(req, res) {
+	res.render('admin', { layout: 'main', title: 'Admin page' });
 };
 
 exports.accessForbiden = function(req,res){
@@ -34,5 +39,9 @@ exports.error = function(req, res) {
 exports.doLogin = function(req, res) {
 	req.session.username = req.body.username;
 	req.session.password = req.body.password;
-	res.redirect('/about');
+	res.redirect('/admin');
+}
+
+exports.doUpload = function(req, res) {
+	album.addPhoto(req.body.albumId, req.files.file, res);
 }

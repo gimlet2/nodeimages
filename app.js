@@ -4,7 +4,7 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
+  , routes = require('./routes');
 
 
 var app = module.exports = express.createServer(
@@ -45,12 +45,20 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
+app.is('an image', function(req){
+      return 0 == req.headers['content-type'].indexOf('image');
+});
+
 // Routes
 
 app.get('/', routes.index);
 app.get('/about', routes.about);
+app.get('/admin', routes.admin);
 app.get('/login', routes.login);
 app.post('/login', routes.doLogin);
+
+app.post('/upload', routes.doUpload);
+
 
 
 app.listen(3000);
