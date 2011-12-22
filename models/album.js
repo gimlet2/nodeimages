@@ -3,12 +3,18 @@ var Schema = mongoose.Schema
 var ObjectId = Schema.ObjectId;
 
 
+var Image = exports.Image = new Schema({
+	content  : Buffer
+  , type	 : String
+});
 
 var Album = exports = module.exports = new Schema({
-    name     : String
+	_id		 : ObjectId
+  , name     : String
   , tezis    : String
   , isNew	 : Boolean
   , isBest	 : Boolean
+  , images	 : [Image]
 });
 
 var AlbumModel = exports.model  = mongoose.model('Album', Album);
@@ -16,25 +22,34 @@ var AlbumModel = exports.model  = mongoose.model('Album', Album);
 
 
 exports.get = function(id, fn){
-  AlbumModel.findOne({ 'aid': id}, function(err, doc) {
-  		if(err == null) {
-  			fn(doc);
-  		} else {
-  			fn(null);
-  			console.log(err);
-  		}
-  });
+  AlbumModel.findById(id, function(err, doc) {
+		checkError(err, doc, fn);
+	});
 };
 
-exports.create = function(username, pass, fn) {
-	var user = new AlbumModel();
-		user.username = username;
-		user.password = pass;
+exports.getAll = function(fn) {
+	AlbumModel.find({}, function(err, doc) {
+		checkError(err, doc, fn);
+	});
+}
 
-		user.save(function(err) {
-			console.log(err);
+checkError = function(err, doc, fn) {
+		if(err == null) {
+			fn(doc);
+		} else {
+			fn(null);
+  			console.log(err);
+		}
+}
+
+exports.create = function(name, tezis, fn) {
+	var album = new AlbumModel();
+		album.name = name;
+		album.tezis = tezis;
+
+		album.save(function(err) {
+			checkError(err, null, fn);
 		});
-//		fn(user);
 }
 
 exports.addPhoto = function(albumId, file, res) {

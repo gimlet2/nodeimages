@@ -21,7 +21,10 @@ exports.about = function(req, res) {
 };
 
 adminWithoutAuth = function(req, res) {
-	res.render('admin', { layout: 'main', title: 'Admin page' });
+	album.getAll(function(albumsList) {
+		res.render('admin', { layout: 'main', title: 'Admin page', albums: albumsList});
+	});
+	
 };
 
 exports.accessForbiden = function(req,res){
@@ -44,4 +47,10 @@ exports.doLogin = function(req, res) {
 
 exports.doUpload = function(req, res) {
 	album.addPhoto(req.body.albumId, req.files.file, res);
+}
+
+exports.createAlbum = function(req, res) {
+	album.create(req.body.albumName, req.body.albumTezis, function() {
+		res.redirect('/admin');
+	});
 }

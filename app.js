@@ -58,6 +58,7 @@ app.get('/login', routes.login);
 app.post('/login', routes.doLogin);
 
 app.post('/upload', routes.doUpload);
+app.post('/album', routes.createAlbum);
 
 
 

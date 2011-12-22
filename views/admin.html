@@ -1,5 +1,29 @@
 <h1>Admin</h1>
-
+<hr/>
+Add album:
+<form method="post" action="/album">
+	<p>Name: <input name="albumName"/></p>
+	<p>Tezis: <input name="albumTezis"/></p>
+	<p><input type="submit" value="Add"/></p>
+</form>
+<hr/>
+<% if (albums.length) { %>
+	<table class="admin_albums_table">
+	<tr>
+		<th>Name</th>
+		<th>Tezis</th>
+		<th>Actions</th>
+	</tr>
+    <% albums.forEach(function(album){ %>
+      <tr>
+      	<td><%= album.name %></td>
+      	<td><%= album.tezis %></td>
+      	<td></td>
+      </tr>
+    <% }) %>
+  </table>
+<% } %>
+<hr/>
 <form method="post" enctype="multipart/form-data" action="/upload">
 	<imput type="hidden" name="albumId" value=""/>
 	<p>Data: <input type="filename" name="filename" /></p>

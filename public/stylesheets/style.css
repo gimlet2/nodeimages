@@ -7,3 +7,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+.admin_albums_table {
+	background-color: #fff;
+	border: 1px solid;
+	border-spacing: 2px;
+}
+.admin_albums_table td{
+	background-color: #eee;
+}
