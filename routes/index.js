@@ -2,6 +2,7 @@
 var auth = require('../auth.js');
 var user = require('../models/user.js');
 var album = require('../models/album.js');
+var image = require('../models/image.js');
 
 /*
  * GET home page.
@@ -46,11 +47,21 @@ exports.doLogin = function(req, res) {
 }
 
 exports.doUpload = function(req, res) {
-	album.addPhoto(req.body.albumId, req.files.file, res);
+	console.log(req.body);
+	album.addPhoto(req.body.albumId, req.body.filename, req.files.file, res);
 }
 
 exports.createAlbum = function(req, res) {
 	album.create(req.body.albumName, req.body.albumTezis, function() {
 		res.redirect('/admin');
+	});
+}
+
+exports.image = function(req, res) {
+	album.get(req.params.albumId, function(albumResult) {
+		img = albumResult.images.id(req.params.id);
+		res.writeHead(200, {"Content-Type": img.type});
+    	res.write(img.content, "binary");
+	    res.end();
 	});
 }

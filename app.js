@@ -60,6 +60,7 @@ app.post('/login', routes.doLogin);
 app.post('/upload', routes.doUpload);
 app.post('/album', routes.createAlbum);
 
+app.get('/image/:albumId/:id', routes.image);
 
 
 app.listen(3000);

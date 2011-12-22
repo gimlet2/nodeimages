@@ -20,13 +20,18 @@ Add album:
       	<td><%= album.name %></td>
       	<td><%= album.tezis %></td>
       	<td><button onclick="selectAlbum(<%= ++i %>, '<%= album._id %>')">Select</button><button>Delete</button></td>
+      	<td>
+    <% album.images.forEach(function(image){ %>      	
+      	<img width="100" src="/image/<%= album._id %>/<%= image._id %>"/>
+    <% }) %>
+    </td>
       </tr>
     <% }) %>
   </table>
 <% } %>
 <hr/>
 <form method="post" enctype="multipart/form-data" action="/upload">
-	<imput type="hidden" id="albumId" name="albumId" value=""/>
+	<input type="hidden" id="albumId" name="albumId"/>
 	<p>Title: <input name="filename" /></p>
 	<p>file: <input type="file" name="file" /></p>
 	<p><input type="submit" value="Upload" /></p>

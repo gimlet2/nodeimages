@@ -1,12 +1,10 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema
 var ObjectId = Schema.ObjectId;
+var fs = require('fs');
 
-
-var Image = exports.Image = new Schema({
-	content  : Buffer
-  , type	 : String
-});
+var Image = require('./image.js');
+var ImageModel = mongoose.model('Image', Image);
 
 var Album = exports = module.exports = new Schema({
 	_id		 : ObjectId
@@ -52,7 +50,27 @@ exports.create = function(name, tezis, fn) {
 		});
 }
 
-exports.addPhoto = function(albumId, file, res) {
-	console.log(file);
-	res.redirect('/about');
+exports.addPhoto = function(albumId, filename, file, res) {
+
+	exports.get(albumId, function(album) {
+		if(album == null) {
+			console.log('Album not found');
+		} else {
+			var image = new ImageModel();
+			image.name = filename;
+			image.type = file.type;
+			image.content = fs.readFileSync(file.path);
+			if (album.images == null) {
+				album.images = {};
+			}
+			album.images.push(image);
+			album.isNew = false;
+			album.save(function(err) {
+				console.log(err);
+				res.redirect('/admin');		
+			});
+
+		}
+	});
+
 }
