@@ -8,11 +8,12 @@ var ImageModel = mongoose.model('Image', Image);
 
 var Album = exports = module.exports = new Schema({
 	_id		 : ObjectId
-  , owner    : ObjectId	
   , name     : String
+  , owner	 : String
   , tezis    : String
   , isNew	 : Boolean
   , isBest	 : Boolean
+  , isPublic : Boolean
   , images	 : [Image]
 });
 
@@ -46,6 +47,9 @@ exports.create = function(req, fn) {
 		album.name = req.body.albumName;
 		album.tezis = req.body.albumTezis;
 		album.owner = req.session.user._id;
+		album.isPublic = false;
+		album.isNew = true;
+		album.isBest = false;
 		album.save(function(err) {
 			checkError(err, null, fn);
 		});

@@ -12,13 +12,20 @@ Add album:
 	<tr>
 		<th>Name</th>
 		<th>Tezis</th>
+		<th>Public</th>
+		<th>New</th>
+		<th>Best</th>
 		<th>Actions</th>
+		<th>Photos</th>
 	</tr>
 	<% var i=0; %>
     <% albums.forEach(function(album){ %>
       <tr>
       	<td><%= album.name %></td>
       	<td><%= album.tezis %></td>
+      	<td><%= album.isPublic %></td>
+      	<td><%= album.isNew %></td>
+      	<td><%= album.isBest %></td>
       	<td><button onclick="selectAlbum(<%= ++i %>, '<%= album._id %>')">Select</button><button>Delete</button></td>
       	<td>
     <% album.images.forEach(function(image){ %>      	
