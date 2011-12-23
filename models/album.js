@@ -8,6 +8,7 @@ var ImageModel = mongoose.model('Image', Image);
 
 var Album = exports = module.exports = new Schema({
 	_id		 : ObjectId
+  , owner    : ObjectId	
   , name     : String
   , tezis    : String
   , isNew	 : Boolean
@@ -25,8 +26,8 @@ exports.get = function(id, fn){
 	});
 };
 
-exports.getAll = function(fn) {
-	AlbumModel.find({}, function(err, doc) {
+exports.getAll = function(req, fn) {
+	AlbumModel.find({owner: req.session.user._id}, function(err, doc) {
 		checkError(err, doc, fn);
 	});
 }
@@ -40,11 +41,11 @@ checkError = function(err, doc, fn) {
 		}
 }
 
-exports.create = function(name, tezis, fn) {
+exports.create = function(req, fn) {
 	var album = new AlbumModel();
-		album.name = name;
-		album.tezis = tezis;
-
+		album.name = req.body.albumName;
+		album.tezis = req.body.albumTezis;
+		album.owner = req.session.user._id;
 		album.save(function(err) {
 			checkError(err, null, fn);
 		});

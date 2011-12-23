@@ -22,7 +22,7 @@ exports.about = function(req, res) {
 };
 
 adminWithoutAuth = function(req, res) {
-	album.getAll(function(albumsList) {
+	album.getAll(req, function(albumsList) {
 		res.render('admin', { layout: 'main', title: 'Admin page', albums: albumsList});
 	});
 	
@@ -52,7 +52,7 @@ exports.doUpload = function(req, res) {
 }
 
 exports.createAlbum = function(req, res) {
-	album.create(req.body.albumName, req.body.albumTezis, function() {
+	album.create(req, function() {
 		res.redirect('/admin');
 	});
 }
