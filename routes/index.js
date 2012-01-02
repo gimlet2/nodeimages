@@ -9,7 +9,7 @@ var image = require('../models/image.js');
  */
 
 exports.index = function(req, res) {
-  res.render('index', { title: 'Express', layout: 'main'  });
+	res.render('index', { title: 'Express', layout: 'main'  });
 };
 
 exports.admin = function(req, res) {

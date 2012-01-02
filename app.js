@@ -19,9 +19,10 @@ app.register('html', require('ejs'));
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/images');
 
-// var user = require('./models/user.js');
+// Initialize super user.
+//var user = require('./models/user.js');
 //user.get('admin', function(result) {
-//	if(result.length == 0) {
+//	if(result == null) {
 //		user.create('admin', 'admin123', null);
 //	}
 //});
