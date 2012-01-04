@@ -1,11 +1,21 @@
 <h1>Admin</h1>
 <hr/>
-Add album:
-<form method="post" action="/album">
+<form method="post" action="/album" style="display:none" id="addAlbumForm">
 	<p>Name: <input name="albumName"/></p>
 	<p>Tezis: <input name="albumTezis"/></p>
-	<p><input type="submit" value="Add"/></p>
+	<p><input type="submit" value="Add" id="submit"/><input type="reset" id="reset" value="cancel"/></p>
 </form>
+<input type="button" id="addAlbumBtn" value="Add Album"></input>
+<script type="text/javascript">
+	$("#addAlbumBtn").click(function(){
+		$("#addAlbumForm").slideToggle("slow");
+		$("#addAlbumBtn").css("visibility","hidden");
+	});
+	$("#submit, #reset").click(function(){
+		$("#addAlbumForm").slideToggle("slow");
+		$("#addAlbumBtn").css("visibility","visible");
+	})
+</script>
 <hr/>
 <% if (albums.length) { %>
 	<table class="admin_albums_table" id="admin_albums_table">
