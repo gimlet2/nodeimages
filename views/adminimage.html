@@ -1,0 +1,30 @@
+<h1>Admin|Images</h1>
+<hr>
+<form id="addImgForm" method="post" enctype="multipart/form-data" action="/upload" style="display:none">
+    <input type="hidden" id="albumId" name="albumId" value="<%= albumId %>"/>
+   	<p>Title: <input name="filename" /></p>
+   	<p>file: <input type="file" name="file" /></p>
+    <p><input id="submit" type="submit" value="Upload" /> <input id="reset" type="reset" value="Cancel"></p>
+</form>
+<input type="button" id="addImgBtn" value="Add image"></input>
+<script type="text/javascript">
+	$("#addImgBtn").click(function(){
+		$("#addImgForm").slideToggle("slow");
+		$("#addImgBtn").css("visibility","hidden");
+	});
+	$("#submit, #reset").click(function(){
+		$("#addImgForm").slideToggle("slow");
+		$("#addImgBtn").css("visibility","visible");
+	})
+</script>
+<hr>
+<% if (images.length) { %>
+    <% images.forEach(function(image){ %>      	
+      	<img width="100" src="/image/<%= albumId %>/<%= image._id %>"/>
+    <% }) %>
+<hr>
+<% } else { %>
+<h2>Click 'Add Image' for create new image at this album</h2>
+<% } %>
+<a href="/admin">Go back</a>
+

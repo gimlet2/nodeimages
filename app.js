@@ -19,6 +19,7 @@ app.register('html', require('ejs'));
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/images');
 
+// TODO: registrationform
 // Initialize super user.
 //var user = require('./models/user.js');
 //user.get('admin', function(result) {
@@ -46,22 +47,24 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
+// TODO: WTF?
 app.is('an image', function(req){
       return 0 == req.headers['content-type'].indexOf('image');
 });
 
 // Routes
+// TODO: admin->:username
+app.get('/', routes.index); // homepage
+app.get('/about', routes.about); // about project
+app.get('/admin', routes.admin); // admin album
+app.get('/admin/:albumId', routes.adminimage); // admin image
+app.get('/login', routes.login); // login form
 
-app.get('/', routes.index);
-app.get('/about', routes.about);
-app.get('/admin', routes.admin);
-app.get('/login', routes.login);
-app.post('/login', routes.doLogin);
+app.post('/login', routes.doLogin); // auth
+app.post('/upload', routes.doUpload); // upload image
+app.post('/album', routes.createAlbum); // create album
 
-app.post('/upload', routes.doUpload);
-app.post('/album', routes.createAlbum);
-
-app.get('/image/:albumId/:id', routes.image);
+app.get('/image/:albumId/:id', routes.image); // show image
 
 
 app.listen(3000);

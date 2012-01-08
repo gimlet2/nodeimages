@@ -3,9 +3,11 @@ var Schema = mongoose.Schema
 var ObjectId = Schema.ObjectId;
 var fs = require('fs');
 
+// require model
 var Image = require('./image.js');
 var ImageModel = mongoose.model('Image', Image);
 
+// model
 var Album = exports = module.exports = new Schema({
 	_id		 : ObjectId
   , name     : String
@@ -20,7 +22,7 @@ var Album = exports = module.exports = new Schema({
 var AlbumModel = exports.model  = mongoose.model('Album', Album);
 
 
-
+// get album
 exports.get = function(id, fn){
   AlbumModel.findById(id, function(err, doc) {
 		checkError(err, doc, fn);
@@ -72,10 +74,10 @@ exports.addPhoto = function(albumId, filename, file, res) {
 			album.isNew = false;
 			album.save(function(err) {
 				console.log(err);
-				res.redirect('/admin');		
+				res.redirect('/admin/'+albumId);		
 			});
 
 		}
 	});
-
 }
+

@@ -36,7 +36,7 @@
       	<td><%= album.isPublic %></td>
       	<td><%= album.isNew %></td>
       	<td><%= album.isBest %></td>
-      	<td><button onclick="selectAlbum(<%= ++i %>, '<%= album._id %>')">Select</button><button>Delete</button></td>
+      	<td><button onclick="selectAlbum(<%= ++i %>, '<%= album._id %>')">Select</button><button>Delete</button><a href="/admin/<%= album._id %>">Add image</a></td>
       	<td>
     <% album.images.forEach(function(image){ %>      	
       	<img width="100" src="/image/<%= album._id %>/<%= image._id %>"/>
@@ -46,10 +46,12 @@
     <% }) %>
   </table>
 <% } %>
-<hr/>
+
+<!-- TODO: window for post -->
 <form method="post" enctype="multipart/form-data" action="/upload">
-	<input type="hidden" id="albumId" name="albumId"/>
-	<p>Title: <input name="filename" /></p>
-	<p>file: <input type="file" name="file" /></p>
-	<p><input type="submit" value="Upload" /></p>
+    <input type="hidden" id="albumId" name="albumId"/>
+   	<!--<p>Title: <input name="filename" /></p>
+   	<p>file: <input type="file" name="file" /></p>
+    <p><input type="submit" value="Upload" /></p>-->
 </form>
+
