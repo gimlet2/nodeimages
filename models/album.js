@@ -58,7 +58,6 @@ exports.create = function(req, fn) {
 }
 
 exports.addPhoto = function(albumId, filename, file, res) {
-
 	exports.get(albumId, function(album) {
 		if(album == null) {
 			console.log('Album not found');
@@ -79,5 +78,11 @@ exports.addPhoto = function(albumId, filename, file, res) {
 
 		}
 	});
+}
+
+exports.delete = function(albumId, fn){
+    AlbumModel.remove({_id: albumId}, function(err, doc){
+        checkError(err, doc, fn);
+    })
 }
 

@@ -54,18 +54,23 @@ app.is('an image', function(req){
 
 // Routes
 // TODO: admin->:username
+// group get
 app.get('/', routes.index); // homepage
 app.get('/about', routes.about); // about project
 app.get('/admin', routes.admin); // admin album
 app.get('/admin/:albumId', routes.adminimage); // admin image
 app.get('/login', routes.login); // login form
+app.get('/image/:albumId/:id', routes.image); // show image
 
+// group post
 app.post('/login', routes.doLogin); // auth
 app.post('/upload', routes.doUpload); // upload image
 app.post('/album', routes.createAlbum); // create album
 
-app.get('/image/:albumId/:id', routes.image); // show image
-
+// group delete
+//app.post('/album/:albumId/delete', routes.deleteAlbum); // delete album
+app.del('/album/:albumId', routes.deleteAlbum); 
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+

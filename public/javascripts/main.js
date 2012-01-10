@@ -16,3 +16,15 @@ function clearCellsColor() {
     	}
 	}
 }
+
+function deleteAlbum(id){
+    $.ajax({
+        url: "/album/" + id,
+        type: "DELETE",
+        success: function(data, textStatus){
+            // TODO: refresh datagrid only
+            location.reload();
+        }
+    })
+}
+

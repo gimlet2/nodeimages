@@ -57,6 +57,20 @@ adminImagePage = function(req, res){
     })
 }
 
+/*
+ * remove album
+ */
+exports.deleteAlbum = function(req, res){
+    userFromSession = {username: req.session.username, password: req.session.password};
+    auth(userFromSession, user, req, res, deleteAlbum, exports.accessForbiden);
+}
+
+deleteAlbum = function(req, res){
+    album.delete(req.params.albumId,function() {
+		res.redirect('/admin');
+	});
+}
+
 exports.accessForbiden = function(req,res){
 	res.redirect('/login');
 };
@@ -76,7 +90,6 @@ exports.doLogin = function(req, res) {
 }
 
 exports.doUpload = function(req, res) {
-	console.log(req.body);
 	album.addPhoto(req.body.albumId, req.body.filename, req.files.file, res);
 }
 
