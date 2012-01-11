@@ -1,15 +1,14 @@
 <h1>Login</h1>
 
 <form method="post" action="/login">
-  <p>
-    <label>Username:</label>
-    <input type="text" name="username">
-  </p>
-  <p>
-    <label>Password:</label>
-    <input type="password" name="password">
-  </p>
-  <p>
-    <input type="submit" value="Login">
-  </p>
+    <fieldset>
+  
+        <div class="clearfix"><input type="text" placeholder="Username" name="username" class="span4"/></div>
+        <div class="clearfix"><input type="password" placeholder="Password" name="password" class="span4"/></div>
+    
+    <div class="actions">
+        <input type="submit" value="Login" class="btn primary">
+        <a class="btn" href="/">Cancel</a>
+    </div>
+    </fieldset>
 </form>
